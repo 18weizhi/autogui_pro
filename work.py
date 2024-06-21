@@ -35,64 +35,74 @@ class AutoWork:
                 return check_result
             # 移动到指定的坐标
             if cmdvalue == 1:
+                data = self.sheet.cell(row=i, column=2).value
+                if len(data) != 2:
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第2列数据有问题"+'请输入数字二元组')
                 try:
-                    data = self.sheet.cell(row=i, column=2).value
                     x, y = data.split(',')
+                    x = int(x)
+                    y = int(y)
                 except:
-                    QMessageBox.critical(None, '错误提示', '请输入数字二元组')
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第2列数据有问题"+'请输入数字二元组')
                     check_result = False
                     return check_result
+            # 单击左键
             if cmdvalue == 2:
                 pass
-
-
-            # 单击图片
-            if cmdvalue == 1:
-                if not isinstance(self.sheet.cell(row=i, column=2).value, str) or (
-                        type(self.sheet.cell(row=i, column=5).value) != type(None) and (
-                not isinstance(self.sheet.cell(row=i, column=4).value, int))):
-                    print("第%s行第2列或第4列数据有问题" % i)
-                    check_result = False
+            # 单击右键
+            if cmdvalue == 3:
+                pass
             # 单击坐标
-            elif cmdvalue == 2:
-                if not isinstance(self.sheet.cell(row=i, column=3).value, int) or not isinstance(
-                        self.sheet.cell(row=i, column=4).value, int) or (
-                        type(self.sheet.cell(row=i, column=5).value) != type(None) and (
-                not isinstance(self.sheet.cell(row=i, column=5).value, int))):
-                    print("第%s行第2列或第3或第4列数据有问题" % i)
+            if cmdvalue == 4:
+                data = self.sheet.cell(row=i, column=2).value
+                if len(data) != 2:
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第2列数据有问题"+'请输入数字二元组')
+                try:
+                    x, y = data.split(',')
+                    x = int(x)
+                    y = int(y)
+                except:
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第2列数据有问题"+'请输入数字二元组')
                     check_result = False
-            # 右键
-            elif cmdvalue == 3:
-                if not isinstance(self.sheet.cell(row=i, column=3).value, int) or not isinstance(
-                        self.sheet.cell(row=i, column=4).value, int) or (
-                        type(self.sheet.cell(row=i, column=5).value) != type(None) and (
-                not isinstance(self.sheet.cell(row=i, column=5).value, int))):
-                    print("第%s行第2列或第3列或第4有多余的数据" % i)
+                    return check_result
+            # 单击图片
+            if cmdvalue == 5:
+                if not isinstance(self.sheet.cell(row=i, column=3).value, str):
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第3列数据有问题"+'请输入图片名称')
                     check_result = False
+                    return check_result
+            # 滑动滚轮
+            if cmdvalue == 6:
+                if not isinstance(self.sheet.cell(row=i, column=4).value, int):
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第4列数据有问题" + '请输入滚动距离')
+                    check_result = False
+                    return check_result
+            # 等待时间
+            if cmdvalue == 7:
+                if not isinstance(self.sheet.cell(row=i, column=5).value, int):
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第5列数据有问题" + '请输入等待时间')
+                    check_result = False
+                    return check_result
             # 输入内容
-            elif cmdvalue == 4:
+            if cmdvalue == 8:
+                if not isinstance(self.sheet.cell(row=i, column=6).value, str):
+                    QMessageBox.critical(None, '错误提示', f"第{i}行第6列数据有问题" + '请输入内容')
+                    check_result = False
+                    return check_result
+            # 指定循环操作
+            if cmdvalue == 9:
+                pass
+
+            # 输入内容
+            if cmdvalue == 4:
                 if not isinstance(self.sheet.cell(row=i, column=2).value, str) or type(
                         self.sheet.cell(row=i, column=5).value) != type(None) or (
                         type(self.sheet.cell(row=i, column=5).value) != type(None) and (
                 not isinstance(self.sheet.cell(row=i, column=5).value, int))):
                     print("第%s行第2列数据有问题" % i)
                     check_result = False
-            # 时间等待
-            elif cmdvalue == 5:
-                if not isinstance(self.sheet.cell(row=i, column=3).value, int) or type(
-                        self.sheet.cell(row=i, column=4).value) != type(None) or (
-                        type(self.sheet.cell(row=i, column=5).value) != type(None) and (
-                not isinstance(self.sheet.cell(row=i, column=5).value, int))):
-                    print("第%s行第2列数据有问题" % i)
-                    check_result = False
-            # 滚轮
-            elif cmdvalue == 6:
-                if not isinstance(self.sheet.cell(row=i, column=2).value, int) or type(
-                        self.sheet.cell(row=i, column=3).value) != type(None) or (
-                        type(self.sheet.cell(row=i, column=5).value) != type(None) and (
-                not isinstance(self.sheet.cell(row=i, column=5).value, int))):
-                    print("第%s行第2列数据有问题" % i)
-                    check_result = False
+
+
             # 回车
             elif cmdvalue == 7:
                 if type(self.sheet.cell(row=i, column=5).value) != type(None) and (
